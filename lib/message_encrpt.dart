@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:encrypt/encrypt.dart' as encrypt;
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
@@ -14,20 +16,38 @@ class txtencrypt extends StatefulWidget {
 class _txtencryptState extends State<txtencrypt> {
   @override
   final _textcontrol = TextEditingController();
+  final _keycontrol = TextEditingController();
   String data = "intial data";
-
-  String encryptedtext = "__________";
-  void encrypt_message() async {
-    final key = encrypt.Key.fromSecureRandom(32);
-    final iv = encrypt.IV.fromSecureRandom(16);
-    final Encrypter = encrypt.Encrypter(encrypt.AES(key));
-    final encrypted = Encrypter.encrypt(data, iv: iv);
-    final decrypted = Encrypter.decrypt(encrypted, iv: iv);
-    print(decrypted);
-    print(encrypted.bytes);
-    print(encrypted.base16);
-    print(encrypted.base64);
-    encryptedtext = encrypted.bytes.toString();
+  int key = 2;
+  int value = 0;
+  int i = 0;
+  String encryptedtext = "";
+  void encrypt_message(int key1) async {
+    //final key = encrypt.Key.;
+    //final iv = encrypt.IV.fromSecureRandom(16);
+    //final Encrypter = encrypt.Encrypter(encrypt.AES(key));
+    //final encrypted = Encrypter.encrypt(data, iv: iv);
+    //final decrypted = Encrypter.decrypt(encrypted, iv: iv);
+    //print(decrypted);
+    //print(encrypted.bytes);
+    //print(encrypted.base16);
+    //print(encrypted.base64);
+    //encryptedtext = encrypted.bytes.toString();
+    print(data);
+    for (i = 0; i < data.length; i++) {
+      int value = data.codeUnitAt(i);
+      print("orginal value ");
+      print(value);
+      if (value + key >= 90) {
+        value = value - 26 + key;
+      } else {
+        value = value + key;
+      }
+      encryptedtext += String.fromCharCode(value);
+      //  String oneAsString = 1.toString();
+      //print(value);
+      print(encryptedtext);
+    }
   }
 
   void decrypt_mesage() {}
@@ -57,6 +77,7 @@ class _txtencryptState extends State<txtencrypt> {
                 ],
               ),
               TextField(
+                controller: _keycontrol,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: 'Enter the key to encrpt',
@@ -67,15 +88,21 @@ class _txtencryptState extends State<txtencrypt> {
                 child: Row(
                   children: [
                     ElevatedButton.icon(
-                      onPressed: () {},
+                      onPressed: () {
+                        // key = _keycontrol.text;
+                        //   data = _keycontrol.text;
+                      },
                       icon: Icon(Icons.enhanced_encryption_rounded),
                       label: Text("Encrypt with key"),
                     ),
                     ElevatedButton.icon(
                       onPressed: () {
                         data = _textcontrol.text;
-                        print(data);
-                        encrypt_message();
+                        setState(() {
+                          // print(data);
+                          encryptedtext = " ";
+                          encrypt_message(key);
+                        });
                       },
                       icon: Icon(Icons.enhanced_encryption_rounded),
                       label: Text(
