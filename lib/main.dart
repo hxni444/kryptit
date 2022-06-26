@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: "KRYPT IT!",
       theme: ThemeData(
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: Colors.white,
         fontFamily: 'Georgia',
       ),
       home: Home_screen(),
