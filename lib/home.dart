@@ -171,7 +171,7 @@ class _Home_screenState extends State<Home_screen> {
                     ),
                   ),
                   Center(
-                    child: Row(
+                    child: Column(
                       children: [
                         //r     Padding(
                         //  padding: const EdgeInsets.all(8.0),

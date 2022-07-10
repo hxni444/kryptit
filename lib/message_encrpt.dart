@@ -80,7 +80,7 @@ class _txtencryptState extends State<txtencrypt> {
         body: SafeArea(
             child: Container(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               TextField(
                 controller: _textcontrol,
@@ -94,13 +94,14 @@ class _txtencryptState extends State<txtencrypt> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   const Text(
-                    "Enter the Key (optional) ",
+                    "Enter the Key  ",
                     textAlign: TextAlign.left,
                   ),
                 ],
               ),
               TextField(
                 controller: _keycontrol,
+                keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: 'Enter the key to encrpt',
@@ -108,16 +109,36 @@ class _txtencryptState extends State<txtencrypt> {
               ),
               Padding(
                 padding: const EdgeInsets.all(20.0),
-                child: Row(
+                child: Column(
                   children: [
                     ElevatedButton.icon(
                       onPressed: () {
                         data = _textcontrol.text;
-                        setState(() {
-                          // print(data);
-                          encryptedtext = " ";
-                          encrypt_message(key);
-                        });
+                        var keyc = (int.parse(_keycontrol.text));
+                        try {
+                          setState(() {
+                            String checkket = _keycontrol.text;
+                            // print(data);
+                            encryptedtext = " ";
+                            print("entered key is");
+                            print(keyc);
+                            // key = int.parse(keyc);
+                            //print(key);
+                            // if (keyc != null) {
+                            key = keyc;
+                            // ignore: unnecessary_null_comparison
+                            if (checkket == "") {
+                              print("enter vallid key");
+                              key = 2;
+                              print("default key is used");
+                              encrypt_message(key);
+                            } else {
+                              encrypt_message(key);
+                            }
+                          });
+                        } catch (exception) {
+                          print("enter proper keyy");
+                        }
                       },
                       icon: Icon(Icons.enhanced_encryption_rounded),
                       label: Text(
@@ -125,7 +146,7 @@ class _txtencryptState extends State<txtencrypt> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(20.0),
+                      padding: const EdgeInsets.all(5.0),
                       child: ElevatedButton.icon(
                         onPressed: () {
                           decryptedtext = "";
@@ -143,14 +164,14 @@ class _txtencryptState extends State<txtencrypt> {
                 ),
               ),
 
-              SizedBox(height: 10),
+              SizedBox(height: 5),
               Text(
                 "encypted message",
                 style: TextStyle(fontSize: 20),
               ),
               Container(
                 width: 240.0,
-                height: 42.0,
+                height: 35.0,
                 decoration: BoxDecoration(
                   // borderRadius: BorderRadius.circular(24.0),
                   border: Border.symmetric(),
@@ -175,7 +196,7 @@ class _txtencryptState extends State<txtencrypt> {
               // SizedBox.fromSize(size: 10),
               Container(
                 width: 240.0,
-                height: 42.0,
+                height: 35.0,
                 decoration: BoxDecoration(
                   // borderRadius: BorderRadius.circular(24.0),
                   border: Border.symmetric(),

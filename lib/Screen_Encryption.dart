@@ -196,6 +196,7 @@ class _EncryptionPageState extends State<EncryptionPage> {
   String? pat;
   String? encFilepath;
   String? filename;
+  String status = "Waiting For action to be performed";
 
   Future<File> saveFilePermanently(PlatformFile file) async {
     final appStorage = await getExternalStorageDirectory();
@@ -314,6 +315,7 @@ class _EncryptionPageState extends State<EncryptionPage> {
             onPressed: () async {
               FocusScope.of(context).unfocus();
               setState(() {
+                status = "Encrypting...........";
                 _textController.text.isEmpty
                     ? _validate = true
                     : _validate = false;
@@ -342,6 +344,9 @@ class _EncryptionPageState extends State<EncryptionPage> {
                   encFilepath = crypt.encryptFileSync(_path!);
 
                   print('The encryption has been completed successfully.');
+                  setState(() {
+                    status = "Encryption completed...............";
+                  });
                   print('Encrypted file: $encFilepath');
 
                   final newFile = await saveFile(encFilepath!);
@@ -408,6 +413,9 @@ class _EncryptionPageState extends State<EncryptionPage> {
         controller: _textController,
         textAlign: TextAlign.center,
         decoration: InputDecoration(
+          fillColor: Color.fromARGB(0, 196, 196, 196),
+          // fillColor: Colors.,
+          filled: true,
           errorText: _validate ? 'please enter password' : null,
           focusedBorder: const OutlineInputBorder(
             borderSide: BorderSide(color: Color(0xffee122a), width: 2.0),
@@ -469,16 +477,31 @@ class _EncryptionPageState extends State<EncryptionPage> {
         body: Stack(
           children: <Widget>[
             Container(
-                height: MediaQuery.of(context).size.height * 0.53,
-                width: MediaQuery.of(context).size.width,
-                child: Container(
-                  decoration: const BoxDecoration(
-                      color: Color(0xffee122a),
-                      borderRadius: BorderRadius.only(
-                          // bottomLeft: Radius.circular(70),
-                          // bottomRight: Radius.circular(70),
-                          )),
-                )),
+              height: MediaQuery.of(context).size.height * 0.53,
+              width: MediaQuery.of(context).size.width,
+              child: Container(
+                decoration: const BoxDecoration(
+                  color: Color(0xffee122a),
+                  borderRadius: BorderRadius.only(
+                      // bottomLeft: Radius.circular(70),
+                      // bottomRight: Radius.circular(70),
+                      ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(24.0),
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      ///Text(status),
+                      Text("loading Wait"),
+                    ],
+                  ),
+                ],
+              ),
+            ),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
