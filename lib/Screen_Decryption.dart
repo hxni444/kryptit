@@ -256,16 +256,31 @@ class _decryptionPageState extends State<decryptionPage> {
     return Padding(
       padding: const EdgeInsets.all(15),
       child: TextField(
+        style:
+            TextStyle(fontSize: 20, color: Color.fromARGB(255, 206, 207, 209)),
         textAlign: TextAlign.center,
         controller: _textController,
         decoration: InputDecoration(
+          fillColor: Color.fromARGB(0, 196, 196, 196),
+          filled: true,
+          hintText: "Enter password",
+          hintStyle:
+              TextStyle(fontSize: 20.0, color: Color.fromARGB(255, 92, 92, 92)),
+          border: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.teal,
+            ),
+          ),
+
+          // fillColor: Colors.grey,
+          //   filled: true,
           errorText: _validate ? 'please enter password' : null,
           focusedBorder: const OutlineInputBorder(
             borderSide: BorderSide(color: Color(0xffee122a), width: 2.0),
           ),
           enabledBorder: const OutlineInputBorder(
               borderSide: BorderSide(color: Color(0xffee122a), width: 1.5)),
-          hintText: "Enter password",
+          //  hintText: "Enter password",
         ),
         obscureText: true,
       ),
