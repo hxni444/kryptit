@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:aes_crypt_null_safe/aes_crypt_null_safe.dart';
 //import 'package:google_fonts/google_fonts.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:ui/home.dart';
 
 class EncryptionPage extends StatefulWidget {
   const EncryptionPage({Key? key}) : super(key: key);
@@ -322,7 +323,18 @@ class _EncryptionPageState extends State<EncryptionPage> {
                   Row(
                     children: [
                       ///Text(status),
-                      Text("loading Wait"),
+                     // Text("loading Wait"),
+                     IconButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (ctx) {
+                        return Home_screen();
+                      },
+                    ),
+                  );
+                },
+                icon: Icon(Icons.home_max_outlined)) 
                     ],
                   ),
                 ],
