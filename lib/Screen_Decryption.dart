@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:aes_crypt_null_safe/aes_crypt_null_safe.dart';
 //import 'package:permission_handler/permission_handler.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:ui/home.dart';
 
 class decryptionPage extends StatefulWidget {
   const decryptionPage({Key? key}) : super(key: key);
@@ -68,7 +69,7 @@ class _decryptionPageState extends State<decryptionPage> {
 
   Widget _buildPasswordRow() {
     return Padding(
-      padding: const EdgeInsets.all(15),
+      padding: const EdgeInsets.all(8),
       child: TextField(
         style:
             TextStyle(fontSize: 20, color: Color.fromARGB(255, 206, 207, 209)),
@@ -358,6 +359,31 @@ class _decryptionPageState extends State<decryptionPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[_buildLogo(), _buildContainer()],
             ),
+            /*  ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (ctx) {
+                        return Home_screen();
+                      },
+                    ),
+                  );
+                },
+                child: Text(
+                  'Go back!',
+                ),
+              )*/
+            IconButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (ctx) {
+                        return Home_screen();
+                      },
+                    ),
+                  );
+                },
+                icon: Icon(Icons.home_max_outlined))
           ],
         ),
         // ),

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:clipboard/clipboard.dart';
 import 'package:encrypt/encrypt.dart' as encrypt;
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
@@ -55,8 +56,9 @@ class _txtencryptState extends State<txtencrypt> {
     }
   }
 
-  void decrypt_mesage(int key1) async {
+  void decrypt_mesage(int key1, String encrypttext) async {
     //decryptedtext = "";
+    encryptedtext = encrypttext;
     for (i = 0; i < encryptedtext.length; i++) {
       int dvalue = encryptedtext.codeUnitAt(i);
       ciphervalue = dvalue - key;
@@ -86,7 +88,8 @@ class _txtencryptState extends State<txtencrypt> {
                 controller: _textcontrol,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  hintText: 'Enter the message to be encrypted in alphabets ',
+                  hintText:
+                      'Enter the message to be encrypted/decrypted in alphabets ',
                 ),
               ),
               Column(
@@ -114,9 +117,10 @@ class _txtencryptState extends State<txtencrypt> {
                     ElevatedButton.icon(
                       onPressed: () {
                         data = _textcontrol.text;
-                        var keyc = (int.parse(_keycontrol.text));
+                        // var keyc = (int.parse(_keycontrol.text));
                         try {
                           setState(() {
+                            var keyc = (int.parse(_keycontrol.text));
                             String checkket = _keycontrol.text;
                             // print(data);
                             encryptedtext = " ";
@@ -133,7 +137,18 @@ class _txtencryptState extends State<txtencrypt> {
                               print("default key is used");
                               encrypt_message(key);
                             } else {
-                              encrypt_message(key);
+                              if (checkket.length <= 2) {
+                                print("enter valid key1");
+                                const snackBar = SnackBar(
+                                content: Text('Enter valid key >100'),
+                                 );
+
+// Find the ScaffoldMessenger in the widget tree
+// and use it to show a SnackBar.R
+                                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                              } else {
+                                encrypt_message(key);
+                              }
                             }
                           });
                         } catch (exception) {
@@ -150,11 +165,29 @@ class _txtencryptState extends State<txtencrypt> {
                       child: ElevatedButton.icon(
                         onPressed: () {
                           decryptedtext = "";
-                          // key = _keycontrol.text;
+                          //data = _textcontrol.text;
+                          // var keyc = (int.parse(_keycontrol.text));
                           //   data = _keycontrol.text;
-                          setState(() {
-                            decrypt_mesage(key);
-                          });
+                          try {
+                            setState(() {
+                              data = _textcontrol.text;
+                              var keyc = (int.parse(_keycontrol.text));
+                              if (keyc < 100) {
+                                print("enter a key greater than 100");
+                                const snackBar = SnackBar(
+                                content: Text('Enter valid key >100'),
+                                 );
+
+// Find the ScaffoldMessenger in the widget tree
+// and use it to show a SnackBar.R
+                                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                              }
+                              String encrptmessage = _textcontrol.text;
+                              decrypt_mesage(keyc, encrptmessage);
+                            });
+                          } catch (exeption) {
+                            print("enter proper key");
+                          }
                         },
                         icon: Icon(Icons.enhanced_encryption_rounded),
                         label: Text("Decrypt"),
@@ -169,50 +202,68 @@ class _txtencryptState extends State<txtencrypt> {
                 "encypted message",
                 style: TextStyle(fontSize: 20),
               ),
-              Container(
-                width: 240.0,
-                height: 35.0,
-                decoration: BoxDecoration(
-                  // borderRadius: BorderRadius.circular(24.0),
-                  border: Border.symmetric(),
-                  color: const Color(0xff2c2c2c),
-                ),
-                child: SizedBox(
-                  child: Text(
-                    encryptedtext,
-                    style: TextStyle(
-                      fontFamily: 'Arial',
-                      fontSize: 20,
-                      color: Colors.white,
-                      height: 2,
+              Row(
+                children: [
+                  Container(
+                    width: 240.0,
+                    height: 35.0,
+                    decoration: BoxDecoration(
+                      // borderRadius: BorderRadius.circular(24.0),
+                      border: Border.symmetric(),
+                      color: const Color(0xff2c2c2c),
+                    ),
+                    child: SizedBox(
+                      child: Text(
+                        encryptedtext,
+                        style: TextStyle(
+                          fontFamily: 'Arial',
+                          fontSize: 20,
+                          color: Colors.white,
+                          height: 2,
+                        ),
+                      ),
                     ),
                   ),
-                ),
+                  IconButton(
+                      onPressed: () {
+                        FlutterClipboard.copy(encryptedtext);
+                      },
+                      icon: Icon(Icons.copy_all_outlined))
+                ],
               ),
               Text(
                 "Decrypted message",
                 style: TextStyle(fontSize: 20),
               ),
               // SizedBox.fromSize(size: 10),
-              Container(
-                width: 240.0,
-                height: 35.0,
-                decoration: BoxDecoration(
-                  // borderRadius: BorderRadius.circular(24.0),
-                  border: Border.symmetric(),
-                  color: const Color(0xff2c2c2c),
-                ),
-                child: SizedBox(
-                  child: Text(
-                    decryptedtext,
-                    style: TextStyle(
-                      fontFamily: 'Arial',
-                      fontSize: 20,
-                      color: Colors.white,
-                      height: 2,
+              Row(
+                children: [
+                  Container(
+                    width: 240.0,
+                    height: 35.0,
+                    decoration: BoxDecoration(
+                      // borderRadius: BorderRadius.circular(24.0),
+                      border: Border.symmetric(),
+                      color: const Color(0xff2c2c2c),
+                    ),
+                    child: SizedBox(
+                      child: Text(
+                        decryptedtext,
+                        style: TextStyle(
+                          fontFamily: 'Arial',
+                          fontSize: 20,
+                          color: Colors.white,
+                          height: 2,
+                        ),
+                      ),
                     ),
                   ),
-                ),
+                  IconButton(
+                      onPressed: () {
+                        FlutterClipboard.copy(decryptedtext);
+                      },
+                      icon: Icon(Icons.copy_all_outlined))
+                ],
               ),
 
               ElevatedButton(
