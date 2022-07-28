@@ -12,7 +12,10 @@ class _SplashState extends State<Splash> {
   @override
   void initState() {
     // TODO: implement initState
-    gotohome();
+    setState(() {
+      gotohome();
+    });
+
     super.initState();
   }
 
@@ -37,8 +40,15 @@ class _SplashState extends State<Splash> {
   }
 
   Future<void> gotohome() async {
+    print("delay function is intiated");
     await Future.delayed(Duration(seconds: 3));
+    setState(() {
+      print("navigation");
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (ctx) => Home_screen()));
+    });
+    /*  await Future.delayed(Duration(seconds: 3));
     Navigator.of(context)
-        .push(MaterialPageRoute(builder: (ctx) => Home_screen()));
+        .push(MaterialPageRoute(builder: (ctx) => Home_screen()));*/
   }
 }

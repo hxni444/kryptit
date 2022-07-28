@@ -5,7 +5,10 @@ import 'package:encrypt/encrypt.dart' as encrypt;
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:ui/displist_message.dart';
 import 'package:ui/home.dart';
+
+String gencrypt = "";
 
 class txtencrypt extends StatefulWidget {
   txtencrypt({Key? key}) : super(key: key);
@@ -136,18 +139,23 @@ class _txtencryptState extends State<txtencrypt> {
                               key = 2;
                               print("default key is used");
                               encrypt_message(key);
+                              gencrypt = encryptedtext;
                             } else {
                               if (checkket.length <= 2) {
                                 print("enter valid key1");
                                 const snackBar = SnackBar(
-                                content: Text('Enter valid key >100'),
-                                 );
+                                  content: Text('Enter valid key >100'),
+                                );
 
 // Find the ScaffoldMessenger in the widget tree
 // and use it to show a SnackBar.R
-                                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(snackBar);
                               } else {
                                 encrypt_message(key);
+                                setState(() {
+                                  gencrypt = encryptedtext;
+                                });
                               }
                             }
                           });
@@ -175,12 +183,13 @@ class _txtencryptState extends State<txtencrypt> {
                               if (keyc < 100) {
                                 print("enter a key greater than 100");
                                 const snackBar = SnackBar(
-                                content: Text('Enter valid key >100'),
-                                 );
+                                  content: Text('Enter valid key >100'),
+                                );
 
 // Find the ScaffoldMessenger in the widget tree
 // and use it to show a SnackBar.R
-                                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(snackBar);
                               }
                               String encrptmessage = _textcontrol.text;
                               decrypt_mesage(keyc, encrptmessage);
@@ -271,13 +280,13 @@ class _txtencryptState extends State<txtencrypt> {
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (ctx) {
-                        return Home_screen();
+                        return messagestoreddisp();
                       },
                     ),
                   );
                 },
                 child: Text(
-                  'Go back!',
+                  'Veiw stored',
                 ),
               )
             ],
