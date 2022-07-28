@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ui/home.dart';
+import 'package:ui/splash.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
         backgroundColor: Color.fromARGB(255, 3, 34, 174),
         fontFamily: 'Georgia',
       ),
-      home: Home_screen(),
+      home: Splash(),
     );
   }
 }
