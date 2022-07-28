@@ -249,8 +249,8 @@ class _Home_screenState extends State<Home_screen> {
 }
 
 //class EncryptData {
-class MyEncrypt {
+/*class MyEncrypt {
   static final mykey = enc.Key.fromUtf8('brotherhood');
   static final myIv = enc.IV.fromUtf8('gokuldas');
   static final MyEncrypter = enc.Encrypter(enc.AES(mykey));
-}
+}*/
