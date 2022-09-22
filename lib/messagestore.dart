@@ -20,7 +20,11 @@ class listveiw extends StatelessWidget {
               return ListTile(
                 title: Text(data.hint),
                 subtitle: Text(data.message),
-                trailing: IconButton(
+                trailing: IconButton(onPressed: () {
+                  
+                },icon: Icon(Icons.delete),
+                color: Colors.red,),
+                leading: IconButton(
                   onPressed: () {
                     /* if (data.id != 0) {
                       deletemessage(data.id!);
@@ -31,8 +35,9 @@ class listveiw extends StatelessWidget {
                     //FlutterClipboard.copy(encryptedtext);
                   },
                   icon: Icon(Icons.copy),
-                  color: Colors.red,
+                  color: Colors.blue,
                 ),
+                
               );
             },
             separatorBuilder: (ctx, index) {

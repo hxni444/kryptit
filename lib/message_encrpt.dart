@@ -108,101 +108,127 @@ class _txtencryptState extends State<txtencrypt> {
               TextField(
                 controller: _keycontrol,
                 keyboardType: TextInputType.number,
+                obscureText: true,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: 'Enter the key to encrpt',
+                  
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.all(20.0),
-                child: Column(
-                  children: [
-                    ElevatedButton.icon(
-                      onPressed: () {
-                        data = _textcontrol.text;
-                        // var keyc = (int.parse(_keycontrol.text));
-                        try {
-                          setState(() {
-                            var keyc = (int.parse(_keycontrol.text));
-                            String checkket = _keycontrol.text;
-                            // print(data);
-                            encryptedtext = " ";
-                            print("entered key is");
-                            print(keyc);
-                            // key = int.parse(keyc);
-                            //print(key);
-                            // if (keyc != null) {
-                            key = keyc;
-                            // ignore: unnecessary_null_comparison
-                            if (checkket == "") {
-                              print("enter vallid key");
-                              key = 2;
-                              print("default key is used");
-                              encrypt_message(key);
-                              gencrypt = encryptedtext;
-                            } else {
-                              if (checkket.length <= 2) {
-                                print("enter valid key1");
-                                const snackBar = SnackBar(
-                                  content: Text('Enter valid key >100'),
-                                );
-
-// Find the ScaffoldMessenger in the widget tree
-// and use it to show a SnackBar.R
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(snackBar);
-                              } else {
-                                encrypt_message(key);
-                                setState(() {
-                                  gencrypt = encryptedtext;
-                                });
-                              }
-                            }
-                          });
-                        } catch (exception) {
-                          print("enter proper keyy");
-                        }
-                      },
-                      icon: Icon(Icons.enhanced_encryption_rounded),
-                      label: Text(
-                        "Encrypt no key",
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: ElevatedButton.icon(
+                child: Center(
+                  child: Row(
+                    children: [
+                      ElevatedButton.icon(
                         onPressed: () {
-                          decryptedtext = "";
-                          //data = _textcontrol.text;
+                          data = _textcontrol.text;
                           // var keyc = (int.parse(_keycontrol.text));
-                          //   data = _keycontrol.text;
                           try {
                             setState(() {
-                              data = _textcontrol.text;
                               var keyc = (int.parse(_keycontrol.text));
-                              if (keyc < 100) {
-                                print("enter a key greater than 100");
-                                const snackBar = SnackBar(
-                                  content: Text('Enter valid key >100'),
-                                );
+                              String checkket = _keycontrol.text;
+                              // print(data);
+                              encryptedtext = " ";
+                              print("entered key is");
+                              print(keyc);
+                              // key = int.parse(keyc);
+                              //print(key);
+                              // if (keyc != null) {
+                              key = keyc;
+                              // ignore: unnecessary_null_comparison
+                              if (checkket == "") {
+                                print("enter vallid key");
+                                key = 2;
+                                print("default key is used");
+                                encrypt_message(key);
+                                gencrypt = encryptedtext;
+                              } else {
+                                if (checkket.length <= 2) {
+                                  print("enter valid key1");
+                                  const snackBar = SnackBar(
+                                    content: Text('Enter valid key >100'),
+                                  );
+
+// Find the ScaffoldMessenger in the widget tree
+// and use it to show a SnackBar.R
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(snackBar);
+                                } else {
+                                  encrypt_message(key);
+                                  setState(() {
+                                    gencrypt = encryptedtext;
+                                  });
+                                }
+                              }
+                            });
+                          } catch (exception) {
+                            print("enter proper keyy");
+                            print("enter a key greater than 100");
+                                  const snackBar = SnackBar(
+                                    content: Text('Enter valid key in numbers'),
+                                  );
 
 // Find the ScaffoldMessenger in the widget tree
 // and use it to show a SnackBar.R
                                 ScaffoldMessenger.of(context)
-                                    .showSnackBar(snackBar);
-                              }
-                              String encrptmessage = _textcontrol.text;
-                              decrypt_mesage(keyc, encrptmessage);
-                            });
-                          } catch (exeption) {
-                            print("enter proper key");
+                                      .showSnackBar(snackBar);
                           }
                         },
                         icon: Icon(Icons.enhanced_encryption_rounded),
-                        label: Text("Decrypt"),
+                        label: Text(
+                          "Encrypt",
+                        ),
                       ),
-                    ),
-                  ],
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(2.0),
+                        child: ElevatedButton.icon(
+                          onPressed: () {
+                            decryptedtext = "";
+                            //data = _textcontrol.text;
+                            // var keyc = (int.parse(_keycontrol.text));
+                            //   data = _keycontrol.text;
+                            try {
+                              setState(() {
+                                data = _textcontrol.text;
+                                var keyc = (int.parse(_keycontrol.text));
+                                key = keyc;
+                                if (keyc < 100) {
+                                  print("enter a key greater than 100");
+                                  const snackBar = SnackBar(
+                                    content: Text('Enter valid key >100'),
+                                  );
+
+// Find the ScaffoldMessenger in the widget tree
+// and use it to show a SnackBar.R
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(snackBar);
+                                }
+                                String encrptmessage = _textcontrol.text;
+                                decrypt_mesage(keyc, encrptmessage);
+                              });
+                            } catch (exeption) {
+                              print("enter proper key");
+                               print("enter a key greater than 100");
+                                  const snackBar = SnackBar(
+                                    content: Text('Enter valid key in numbers'),
+                                  );
+
+// Find the ScaffoldMessenger in the widget tree
+// and use it to show a SnackBar.R
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(snackBar);
+                            }
+                          },
+                          icon: Icon(Icons.enhanced_encryption_rounded),
+                          label: Text("Decrypt"),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
 
@@ -286,7 +312,7 @@ class _txtencryptState extends State<txtencrypt> {
                   );
                 },
                 child: Text(
-                  'Veiw stored',
+                  'Veiw stored/Add',
                 ),
               )
             ],

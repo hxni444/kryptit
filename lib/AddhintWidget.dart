@@ -17,12 +17,17 @@ class waddmessage extends StatelessWidget {
         children: [
           TextFormField(
             controller: _hintcontroller,
+            decoration:const InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: 'Enter the hint to remember',
+                ),
+            
           ),
           ElevatedButton(
             onPressed: () {
               addonbuttonactionclick();
             },
-            child: Text("Store"),
+            child: Text("Store and veiw"),
           )
         ],
       ),
@@ -34,11 +39,13 @@ class waddmessage extends StatelessWidget {
     final message = gencrypt;
     print(gencrypt);
     final _hint = _hintcontroller.text;
+    int _id = 1;
     if (message.isEmpty || _hint.isEmpty) {
       return;
     }
-   // print("$message,$_hint");
+    // print("$message,$_hint");
     final model = messagemodel(message: message, hint: _hint);
+    _id = _id + 1;
     addmessage(model);
   }
 }

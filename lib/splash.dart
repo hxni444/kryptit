@@ -41,7 +41,7 @@ class _SplashState extends State<Splash> {
 
   Future<void> gotohome() async {
     print("delay function is intiated");
-    await Future.delayed(Duration(seconds: 3));
+    await Future.delayed(Duration(seconds: 2));
     setState(() {
       print("navigation");
       Navigator.of(context)
